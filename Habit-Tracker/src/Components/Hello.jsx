@@ -1,17 +1,14 @@
-import React from 'react'
-import { useLocation } from "react-router-dom";
+import React from "react";
 import "./Hello.css";
 
-function Hello() {
-    const location = useLocation();
-    const { name } = location.state || { name: "Guest" }; 
-  
-    return (
-      <div className="Hello-container">
-        <div className="Hello-sub-container">
-          <h1>Welcome, {name}!</h1>
-        </div>
+function Hello({ nom }) {
+  return (
+    <div className="Hello-container">
+      <div className="Hello-sub-container">
+        <h1>Welcome, {nom}!</h1>
       </div>
-    );
-  }
+    </div>
+  );
+}
+
 export default Hello;

@@ -4,10 +4,10 @@ import "./WelcomePage.css";
 
 function WelcomePage() {
   const [name, setName] = useState(""); 
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   const handleContinue = () => {
-    navigate("/hello", { state: { name } }); // Navigate to the HelloComponent and pass the name as state
+    navigate("/habit", { state: { name } }); // Pass name to HabitPage
   };
 
   return (
