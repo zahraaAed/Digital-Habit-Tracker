@@ -2,6 +2,9 @@ import React from 'react'
 import WelcomePage from './Pages/WelcomePage';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Hello from './Components/Hello';
+import HabitPage from './Pages/HabitPage';
+import "./App.css";
+
 
 
 function App() {
@@ -12,6 +15,7 @@ function App() {
 
       <Route path="/hello" element={<Hello/>}/>
 
+  <Route path="/habit" element={<HabitPage/>}/>
     </Routes>
   </Router>
   )

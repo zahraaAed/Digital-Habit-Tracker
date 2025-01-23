@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLocation } from "react-router-dom";
+import "./Hello.css";
 
 function Hello() {
     const location = useLocation();
@@ -7,8 +8,8 @@ function Hello() {
   
     return (
       <div className="Hello-container">
-        <div className="sub-container">
-          <h1>Hello, {name}!</h1>
+        <div className="Hello-sub-container">
+          <h1>Welcome, {name}!</h1>
         </div>
       </div>
     );
