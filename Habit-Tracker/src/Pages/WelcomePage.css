@@ -11,7 +11,7 @@
     overflow: hidden; 
   }
   
-  .container {
+  .welcome-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,14 +26,14 @@
     backdrop-filter: blur(10px); 
   }
   
-  .container h1 {
+  .welcome-container h1 {
     color: #2B0562;
     font-family: 'Arial', sans-serif;
     font-size: 36px;
     margin-bottom: 10px;
   }
   
-  .container input {
+  .welcome-container input {
     padding: 10px;
     width: 45%;
     border: none;
@@ -43,13 +43,13 @@
     box-shadow: 0 2px 4px #2B0562; 
     color: #2B0562;
   }
-  .container input:focus {
+  .welcome-container input:focus {
     outline: none; 
     border: 2px solid #5A67D8;
     box-shadow: 0 0 5px rgba(90, 103, 216, 0.5); 
   }
   
-  .container button {
+  .welcome-container button {
     background-color: #5A67D8; 
     color: #ffffff;
     padding: 10px 20px;
@@ -60,7 +60,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
   }
   
-  .container button:hover {
+  .welcome-container button:hover {
     background-color: #4C51BF;
     transform: scale(1.05); 
   }

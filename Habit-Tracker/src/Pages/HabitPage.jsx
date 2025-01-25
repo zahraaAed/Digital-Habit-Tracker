@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Hello from "../Components/Hello";
 import "./Habit.css";
@@ -6,9 +6,11 @@ import "./Habit.css";
 function HabitPage() {
   const location = useLocation();
   const { name } = location.state || { name: "Guest" };
+  const [newHabit,setNewHabit]=useState();
 
   return (
-    <>
+  
+    <div className="habit-container">
       <Hello nom={name} /> {/* Pass name to Hello */}
       {/* <div className="input-container">
         <input type="text" placeholder="Enter a new habit" className="input-habit" />
@@ -21,19 +23,20 @@ function HabitPage() {
           placeholder="Enter a new habit"
           onChange={(e) => setNewHabit(e.target.value)}
         />
-        <button onClick={addHabit}>Add Habit</button>
+        <button>Add Habit</button>
       </div>
 
       <div className="predefined-habits">
         <div className="habit-box">
-          <p>Select a predefined habit:</p>
+          <h1>Select a predefined habit</h1>
           <button>The First Predefined Habit</button>
           <button>The Second Predefined Habit</button>
           <button>The Third Predefined Habit</button>
           <button>The Fourth Predefined Habit</button>
         </div>
       </div>
-    </>
+    </div>
+  
   );
 }
 

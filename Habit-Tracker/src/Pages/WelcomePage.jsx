@@ -12,7 +12,7 @@ function WelcomePage() {
 
   return (
     <div className="main-container">
-      <div className="container">
+      <div className="welcome-container">
         <h1>Welcome to Your Habit Tracker</h1>
         <input
           type="text"
