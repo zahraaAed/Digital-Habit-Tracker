@@ -8,62 +8,104 @@ function HabitPage() {
   const location = useLocation();
   const { name } = location.state || { name: "Guest" };
 
-  const [showModal, setShowModal] = useState(false); // Controls the modal visibility
-  const [newHabit, setNewHabit] = useState(""); // Input for new habits
-  const [habitsList, setHabitsList] = useState([]); // List of all habits
+  const [showModal, setShowModal] = useState(false); 
+  const [newHabit, setNewHabit] = useState(""); 
+  const [habitsList, setHabitsList] = useState([]); 
   const [editingIndex, setEditingIndex] = useState(null); // Tracks which habit is being edited
   const [editedHabit, setEditedHabit] = useState(""); // Tracks the value being edited in the modal
 
   const predefinedHabits = [
-    "The First Predefined Habit",
-    "The Second Predefined Habit",
-    "The Third Predefined Habit",
-    "The Fourth Predefined Habit",
+    "Drink 8 glasses of water daily",
+    "Exercise for 30 minutes",
+    "Read for 20 minutes",
+    "Write in a journal",
+    "Wake up at 6:00 AM",
+    "Avoid social media for an hour before bed",
+    "Plan your day in the morning",
+    "Spend quality time with family",
   ];
+  
 
-  // Add a new habit from input
   const handleAddHabit = () => {
     if (newHabit.trim()) {
-      setHabitsList([...habitsList, newHabit]); // Add the habit to the list
-      setNewHabit(""); // Clear the input
+      const newHabitObject = {
+        habitName: newHabit,
+        dates: {
+          Mon: false,
+          Tue: false,
+          Wed: false,
+          Thu: false,
+          Fri: false,
+          Sat: false,
+          Sun: false,
+        },
+      };
+      setHabitsList([...habitsList, newHabitObject]);
+      setNewHabit(""); // Clear the input field
     }
   };
+  
+  
+  const handleToggleStatus = (habitIndex, day) => {
+    const updatedHabits = [...habitsList];
+    updatedHabits[habitIndex].dates[day] = !updatedHabits[habitIndex].dates[day];
+    setHabitsList(updatedHabits);
+  };
+  
 
   // Add a predefined habit
   const handleAddPredefinedHabit = (habit) => {
-    setHabitsList([...habitsList, habit]);
+    const newHabitObject = {
+      habitName: habit,
+      dates: {
+        Mon: false,
+        Tue: false,
+        Wed: false,
+        Thu: false,
+        Fri: false,
+        Sat: false,
+        Sun: false,
+      },
+    };
+    setHabitsList([...habitsList, newHabitObject]);
   };
+  
 
   // Delete a habit
   const handleDeleteHabit = (index) => {
-    const updatedHabits = habitsList.filter((_, i) => i !== index); // Remove the selected habit
-    setHabitsList(updatedHabits);
+    const updatedHabits = [...habitsList]; 
+    updatedHabits.splice(index, 1); 
+    setHabitsList(updatedHabits); 
   };
+  
 
-  // Open the modal for editing a habit
+  // Open modal for editing a habit
   const handleEditHabit = (index) => {
-    setEditingIndex(index); // Save the index of the habit being edited
-    setEditedHabit(habitsList[index]); // Pre-fill the input with the habit name
-    setShowModal(true); // Show the modal
+    setEditingIndex(index);
+    setEditedHabit(habitsList[index].habitName);
+    setShowModal(true);
   };
 
   // Save the edited habit
   const handleSaveEdit = () => {
-    if (editedHabit.trim()) {
+    if (typeof editedHabit === "string" && editedHabit.trim()) {
       const updatedHabits = [...habitsList];
-      updatedHabits[editingIndex] = editedHabit; // Update the habit at the editingIndex
-      setHabitsList(updatedHabits); // Save the updated list
-      setShowModal(false); // Close the modal
-      setEditingIndex(null); // Clear the editing state
-      setEditedHabit(""); // Clear the input field
+      updatedHabits[editingIndex] = {
+        ...updatedHabits[editingIndex], 
+        habitName: editedHabit, 
+      };
+      setHabitsList(updatedHabits); 
+      setShowModal(false); 
+      setEditingIndex(null);
+      setEditedHabit(""); 
     }
   };
 
-  // Close the modal without saving
+  // Close the modal
   const handleCloseModal = () => {
     setShowModal(false);
-    setEditedHabit(""); // Reset the edited habit field
-    setEditingIndex(null); // Clear the editing state
+    setEditedHabit("");
+    setEditingIndex(null); 
   };
 
   return (
@@ -95,17 +137,18 @@ function HabitPage() {
 
       {/* Render Habits List */}
       <div className="habit-list">
-        {habitsList.map((habitName, index) => (
-          <HabitTracker
-            key={index}
-            habitName={habitName} // Pass habit name
-            onDelete={() => handleDeleteHabit(index)} // Pass delete handler
-            onEdit={() => handleEditHabit(index)} // Pass edit handler
-          />
-        ))}
-      </div>
+  {habitsList.map((habit, index) => (
+    <HabitTracker
+      key={index}
+      habit={habit} // Pass the entire habit object
+      onDelete={() => handleDeleteHabit(index)} // Delete habit
+      onEdit={() => handleEditHabit(index)} // Edit habit
+      onToggleStatus={(day) => handleToggleStatus(index, day)} // Toggle status
+    />
+  ))}
+</div>
 
-      {/* Modal for Editing Habit */}
+      
       {showModal && (
         <div className="modal">
           <div className="modal-content">
@@ -122,6 +165,7 @@ function HabitPage() {
           </div>
         </div>
       )}
+ 
     </div>
   );
 }

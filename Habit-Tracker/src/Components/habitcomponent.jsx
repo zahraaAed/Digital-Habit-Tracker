@@ -1,15 +1,26 @@
 import React from "react";
 import "./habitcomponent.css";
 
-const HabitTracker = ({ habitName, onDelete, onEdit }) => {
+const HabitTracker = ({ habit, onDelete, onEdit, onToggleStatus }) => {
   return (
     <div className="habit-item">
-      <p>{habitName}</p>
+  
+      <p>{habit.habitName}</p>
       <div className="days">
         {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, index) => (
-          <button key={index}>{day}</button>
+          <button
+            key={index}
+            onClick={() => onToggleStatus(day)} 
+            style={{
+              backgroundColor: habit.dates[day] ? "#D1FFBD" : "#FFEEC9",
+            }}
+          >
+            {day}
+          </button>
         ))}
       </div>
+
+      {/* Edit and Delete Buttons */}
       <div className="buttons">
         <button className="delete-habit" onClick={onDelete}>
           Delete Habit
@@ -23,3 +34,5 @@ const HabitTracker = ({ habitName, onDelete, onEdit }) => {
 };
 
 export default HabitTracker;
+
+

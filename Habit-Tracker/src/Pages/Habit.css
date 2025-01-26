@@ -8,7 +8,9 @@
     width: 80%;
     text-align: center;
 }
-  
+.sub-habit-container{
+  width: 80%;
+}
 h1 {
     color: #2B0562;
     margin-bottom: 40px;
