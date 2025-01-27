@@ -1,3 +1,4 @@
+/* General styling for .habit-item */
 .habit-item {
     background-color: #bbc1f7;
     padding: 15px;
@@ -7,20 +8,21 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-}
+  }
   
-.habit-item p {
+  .habit-item p {
     color: #2B0562;
     font-size: 1.2rem;
     margin-bottom: 10px;
-}
-
-.days {
+  }
+  
+  .days {
     display: flex;
     justify-content: space-between;
+    gap: 15px; /* Ensure some gap between buttons */
+  }
   
-}
-.days button {
+  .days button {
     background-color: #D9D9D9;
     color: #2B0562;
     border: none;
@@ -28,14 +30,14 @@
     padding: 8px 0;
     width: 100px;
     height: 50px;
-}
+  }
   
-.days button:hover {
+  .days button:hover {
     background-color: #b5b2aa;
-}
+  }
   
-.delete-habit {
-    background-color:#E6B2DB;;
+  .delete-habit {
+    background-color: #E6B2DB;
     color: white;
     border: none;
     border-radius: 5px;
@@ -43,16 +45,18 @@
     font-size: 1rem;
     margin-top: 10px;
     width: 15%;
-}
+  }
   
-.delete-habit:hover {
+  .delete-habit:hover {
     background-color: palevioletred;
-}
-.buttons{
+  }
+  
+  .buttons {
     display: flex;
     gap: 20px;
-}
-.edit-habit{
+  }
+  
+  .edit-habit {
     background-color: #5d3ebc;
     color: white;
     border: none;
@@ -61,7 +65,118 @@
     font-size: 1rem;
     margin-top: 10px;
     width: 15%;
-}
-.edit-habit:hover{
+  }
+  
+  .edit-habit:hover {
     background-color: #2B0562;
-}
+  }
+  
+  /* Media Queries for Responsiveness */
+  
+  /* Screens between 1400px and 1700px */
+  @media screen and (max-width: 1700px) and (min-width: 1400px) {
+    .days {
+      gap: 5px;
+    }
+  }
+  
+  /* Screens between 633px and 1400px */
+  @media screen and (min-width: 633px) and (max-width: 1400px) {
+    .habit-item {
+      width: 90%;
+      margin: 0 auto;
+    }
+  
+    .days {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+  
+    .days button {
+      width: 100%;
+    }
+  
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .delete-habit, .edit-habit {
+      width: 100%;
+    }
+  }
+  
+  /* Screens between 480px and 633px */
+  @media screen and (min-width: 480px) and (max-width: 633px) {
+    .habit-item {
+      width: 100%; /* Full-width for narrow screens */
+      margin: 0 auto;
+      padding: 10px; /* Reduce padding to save space */
+    }
+  
+    .days {
+      display: flex;
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 8px;
+    }
+  
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .delete-habit, .edit-habit {
+      width: 100%;
+      margin-top: 5px;
+    }
+  
+    .habit-item p {
+      font-size: 1rem;
+    }
+  
+    .days button {
+      width: 100%; /* Full-width buttons */
+      height: auto;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Screens below 480px */
+  @media screen and (max-width: 480px) {
+    .habit-item {
+      width: 95%; /* Full-width for small devices */
+      margin-bottom: 20px;
+      padding: 8px; /* Slightly reduce padding */
+    }
+  
+    .days {
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 8px;
+    }
+  
+    .buttons {
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 10px;
+    }
+  
+    .days button {
+      width: 100%; /* Full-width buttons */
+      padding: 8px; /* Compact button size */
+      font-size: 0.85rem; /* Smaller text for buttons */
+    }
+  
+    .delete-habit, .edit-habit {
+      width: 100%;
+      margin-top: 8px; /* Ensure spacing between buttons */
+      font-size: 0.9rem; /* Adjust button font size */
+    }
+  
+    .habit-item p {
+      font-size: 0.9rem; /* Slightly smaller font for text */
+    }
+  }
+  
