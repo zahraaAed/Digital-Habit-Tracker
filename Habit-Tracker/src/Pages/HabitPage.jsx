@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import HabitTracker from "../Components/habitcomponent";
 import Hello from "../Components/Hello";
 import { useLocation } from "react-router-dom";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import Sidebar from "../Components/sidebar";
 import "./Habit.css";
 
 function HabitPage() {
@@ -13,6 +16,7 @@ function HabitPage() {
   const [habitsList, setHabitsList] = useState([]); 
   const [editingIndex, setEditingIndex] = useState(null); // Tracks which habit is being edited
   const [editedHabit, setEditedHabit] = useState(""); // Tracks the value being edited in the modal
+  const [selectedStatus, setSelectedStatus] = useState("In Progress"); // New state for selected status
 
   const predefinedHabits = [
     "Drink 8 glasses of water daily",
@@ -24,12 +28,13 @@ function HabitPage() {
     "Plan your day in the morning",
     "Spend quality time with family",
   ];
-  
 
+  // Add a new habit with selected status
   const handleAddHabit = () => {
     if (newHabit.trim()) {
       const newHabitObject = {
         habitName: newHabit,
+        status: selectedStatus,
         dates: {
           Mon: false,
           Tue: false,
@@ -41,22 +46,30 @@ function HabitPage() {
         },
       };
       setHabitsList([...habitsList, newHabitObject]);
-      setNewHabit(""); // Clear the input field
+      setNewHabit("");
     }
   };
-  
-  
+
+  const handleDrop = (item, status) => {
+    console.log("Dropped item:", item, "New status:", status);
+    setHabitsList((prevHabits) =>
+      prevHabits.map((habit) =>
+        habit.habitName === item.habitName ? { ...habit, status } : habit
+      )
+    );
+  };
+  // Toggle the habit status for each day (Mon-Sun)
   const handleToggleStatus = (habitIndex, day) => {
     const updatedHabits = [...habitsList];
     updatedHabits[habitIndex].dates[day] = !updatedHabits[habitIndex].dates[day];
     setHabitsList(updatedHabits);
   };
-  
 
   // Add a predefined habit
   const handleAddPredefinedHabit = (habit) => {
     const newHabitObject = {
       habitName: habit,
+      status: "In Progress", // Set default status as "In Progress"
       dates: {
         Mon: false,
         Tue: false,
@@ -69,15 +82,13 @@ function HabitPage() {
     };
     setHabitsList([...habitsList, newHabitObject]);
   };
-  
 
   // Delete a habit
   const handleDeleteHabit = (index) => {
-    const updatedHabits = [...habitsList]; 
-    updatedHabits.splice(index, 1); 
-    setHabitsList(updatedHabits); 
+    const updatedHabits = [...habitsList];
+    updatedHabits.splice(index, 1);
+    setHabitsList(updatedHabits);
   };
-  
 
   // Open modal for editing a habit
   const handleEditHabit = (index) => {
@@ -91,13 +102,13 @@ function HabitPage() {
     if (typeof editedHabit === "string" && editedHabit.trim()) {
       const updatedHabits = [...habitsList];
       updatedHabits[editingIndex] = {
-        ...updatedHabits[editingIndex], 
-        habitName: editedHabit, 
+        ...updatedHabits[editingIndex],
+        habitName: editedHabit,
       };
-      setHabitsList(updatedHabits); 
-      setShowModal(false); 
+      setHabitsList(updatedHabits);
+      setShowModal(false);
       setEditingIndex(null);
-      setEditedHabit(""); 
+      setEditedHabit("");
     }
   };
 
@@ -105,7 +116,7 @@ function HabitPage() {
   const handleCloseModal = () => {
     setShowModal(false);
     setEditedHabit("");
-    setEditingIndex(null); 
+    setEditingIndex(null);
   };
 
   return (
@@ -120,6 +131,17 @@ function HabitPage() {
           placeholder="Enter a new habit"
           onChange={(e) => setNewHabit(e.target.value)}
         />
+        
+        <select //status dropdown
+        className="select-status"
+          value={selectedStatus}
+          onChange={(e) => setSelectedStatus(e.target.value)} // Update the selected status
+        >
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+          <option value="Incompleted">Incompleted</option>
+        </select>
+
         <button onClick={handleAddHabit}>Add Habit</button>
       </div>
 
@@ -136,36 +158,38 @@ function HabitPage() {
       </div>
 
       {/* Render Habits List */}
-      <div className="habit-list">
-  {habitsList.map((habit, index) => (
-    <HabitTracker
-      key={index}
-      habit={habit} // Pass the entire habit object
-      onDelete={() => handleDeleteHabit(index)} // Delete habit
-      onEdit={() => handleEditHabit(index)} // Edit habit
-      onToggleStatus={(day) => handleToggleStatus(index, day)} // Toggle status
-    />
-  ))}
-</div>
-
-      
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Edit Habit</h2>
-            <input
-              type="text"
-              value={editedHabit}
-              onChange={(e) => setEditedHabit(e.target.value)}
+      <DndProvider backend={HTML5Backend}>
+        <div className="habit-list">
+          {habitsList.map((habit, index) => (
+            <HabitTracker
+              key={index}
+              habit={habit}
+              onDelete={() => handleDeleteHabit(index)}
+              onEdit={() => handleEditHabit(index)}
+              onToggleStatus={(day) => handleToggleStatus(index, day)}
             />
-            <div className="modal-buttons">
-            <button onClick={handleSaveEdit}>Save</button>
-            <button onClick={handleCloseModal}>Cancel</button>
+          ))}
+        </div>
+
+        {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Edit Habit</h2>
+              <input
+                type="text"
+                value={editedHabit}
+                onChange={(e) => setEditedHabit(e.target.value)}
+              />
+              <div className="modal-buttons">
+                <button onClick={handleSaveEdit}>Save</button>
+                <button onClick={handleCloseModal}>Cancel</button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
- 
+        )}
+
+        <Sidebar habitsList={habitsList} onDrop={handleDrop} />
+      </DndProvider>
     </div>
   );
 }

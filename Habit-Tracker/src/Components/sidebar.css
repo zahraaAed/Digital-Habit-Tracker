@@ -45,3 +45,11 @@
 .status{
   padding: 25px;
 }
+.dropzone {
+  transition: background-color 0.2s ease;
+  background-color: #3c2b88;
+}
+
+.dropzone-active {
+  background-color: #e0f7fa;
+}

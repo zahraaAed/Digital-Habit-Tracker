@@ -159,3 +159,10 @@ gap: 15px;
   .modal-buttons button:last-child:hover {
     background-color: palevioletred;
   }
+
+  .select-status{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #da93e9;
+    font-size: 1rem;
+  }
