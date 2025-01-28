@@ -65,3 +65,9 @@
     transform: scale(1.05); 
   }
   
+  @media screen and (max-width:480px){
+    .welcome-container{
+      width: 70%;
+    }
+    
+  }

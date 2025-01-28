@@ -147,36 +147,41 @@
   
   /* Screens below 480px */
   @media screen and (max-width: 480px) {
+    .habit-list{
+      width: 90%;
+   margin: 0 auto;
+   padding-right: 30px;
+    }
     .habit-item {
-      width: 95%; /* Full-width for small devices */
+      width: 100%; 
       margin-bottom: 20px;
-      padding: 8px; /* Slightly reduce padding */
+     
     }
   
     .days {
-      flex-direction: column; /* Stack buttons vertically */
+      flex-direction: column;
       gap: 8px;
     }
   
     .buttons {
-      flex-direction: column; /* Stack buttons vertically */
+      flex-direction: column;
       gap: 10px;
     }
   
     .days button {
-      width: 100%; /* Full-width buttons */
-      padding: 8px; /* Compact button size */
-      font-size: 0.85rem; /* Smaller text for buttons */
+      width: 100%;
+      padding: 8px; 
+      font-size: 0.85rem; 
     }
   
     .delete-habit, .edit-habit {
       width: 100%;
-      margin-top: 8px; /* Ensure spacing between buttons */
-      font-size: 0.9rem; /* Adjust button font size */
+      margin-top: 8px; 
+      font-size: 0.9rem; 
     }
   
     .habit-item p {
-      font-size: 0.9rem; /* Slightly smaller font for text */
+      font-size: 0.9rem;
     }
   }
   

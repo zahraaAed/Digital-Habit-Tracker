@@ -204,14 +204,15 @@ h1 {
 }
 @media screen and (max-width: 720px) and (min-width: 300px) {
   .habit-container {
-    width: 75%;
+    width: 85%;
+   
 
 padding-top: 50px;
     display: flex;
     align-items: center;
     flex-direction: column;
     margin: 0 auto;
-    padding-right: 50px;
+   
   }
   .add-habit {
     flex-direction: column;
@@ -224,7 +225,7 @@ padding-top: 50px;
     width: 100%;
   }
   .add-habit input{
-    width: 92%;
+    width: 95%;
   }
 }
 
